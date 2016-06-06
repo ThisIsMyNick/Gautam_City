@@ -1,0 +1,30 @@
+    Which jobs are most crucial?
+Core:
+-Class to parse, store, and allow for the manipulation of frames
+-Class to cartoonify a frame using edge detection and color approximation algorithms
+
+    Which components constitute core functionality vs extras?
+Core:
+-Class to parse, store, and allow for the manipulation of frames
+-Class to cartoonify a frame using edge detection and color approximation algorithms 
+
+Extras:
+-an interface that utilizes java processing
+-classes that do other things(grayscale, reverse color, ect.)
+-upload a video/download changed video
+
+    Which components are prerequisites for others?
+All parts can be done separately. 
+
+    Which tasks can be delegated, and which must be collaboratively tackled?
+-Coding a frame parsing class can be assigned to one person, although the rest of the group member should know how to use this class.
+-The cartoonifier class can be delegated to a single person, although it is better to assign it to two people because it may be difficult to implement.
+-This is also true for any of the other features that we may decide to put in.
+
+    What is the timeline, and how does it accommodate setbacks, course changes?
+-Have core functionality complete by 6/12
+-Add in extras until deadline
+-having a soft deadline at 6/12 means that if we encounter any bugs, we will have plenty of time to fix them
+6/5 UPDATE: 
+-figure out the algorithm for watershedding images: www.ncc.org.in/download.php?f=NCC2003/C-7.pdf (Do more research)
+-need a folder so that the Video library can work on Linux

@@ -1,0 +1,4 @@
+06/05/16
+Ricky:
+-started researching Watershed image processing(see: www.ncc.org.in/download.php?f=NCC2003/C-7.pdf)
+-wrote some preliminary code (that doesn't work) to test Video library in processing (shoutout to VIncent for providing a video and directing me to a site that converts youtube videos to .mov files)
