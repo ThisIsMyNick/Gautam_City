@@ -1,3 +1,5 @@
+int DIFFICULTY = 4; //i would make buttons for this but meh. beyond 6, too slow.
+
 class Info
 {
     static final int WHITE = 0;
@@ -52,22 +54,41 @@ void mouseClicked()
     {
         GameState = State.MENU;
         clearBoard();
-    } else if (GameState == State.PVP || GameState == State.AI)
+    } else if (GameState == State.PVP)
     {
         gameInput();
         drawGame();
-        int winner = win();
-        if (winner != Info.WHITE)
+        checkWinner(board);
+        turn++;
+    } else if (GameState == State.AI)
+    {
+        if (!gameInput())
         {
-            lastWinner = winner;
-            GameState = State.END;
+            return;
         }
+        drawGame();
+        if (checkWinner(board))
+            return;
+        minimax(board, Info.BLACK, DIFFICULTY);
+        placeTile(board, bestColumn, Info.BLACK);
+        drawGame();
+        checkWinner(board);
     }
 }
 
-int getColor(int x, int y)
+boolean checkWinner(Circle[][] _board)
 {
-    return board[x][y].colorNow;
+    int winner = win(_board);
+    if (winner == Info.WHITE)
+        return false;
+    lastWinner = winner;
+    GameState = State.END;
+    return true;
+}
+
+int getColor(Circle[][] _board, int x, int y)
+{
+    return _board[x][y].colorNow;
 }
 
 class Circle
@@ -80,6 +101,13 @@ class Circle
         xcor = 65 + 110 * x;
         ycor = 65 + 110 * y;
         colorNow = Info.WHITE;
+    }
+    //below used for copying only
+    Circle(int x, int y, int col)
+    {
+        xcor = x;
+        ycor = y;
+        colorNow = col;
     }
     void draw()
     {

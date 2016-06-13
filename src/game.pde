@@ -1,4 +1,4 @@
-void gameInput()
+boolean gameInput()
 {
     //finds which column was clicked on
     int column = (mouseX - 10) / 110;
@@ -6,27 +6,23 @@ void gameInput()
     //if every circle in the column in filled (not white), dont do anything
     if (board[0][column].colorNow != Info.WHITE)
     {
-        return;
+        return false;
     }
+    int col;
+    if (turn % 2 == 0) col = Info.RED;
+    else col = Info.BLACK;
+    placeTile(board, column, col);
+    return true;
+}
 
-    //if there is at least one white circle in the column, fill it with red or black
-    for (int x = 5; x >= 0; x--){
-        if (board[x][column].colorNow == Info.WHITE)
+void placeTile(Circle[][] _board, int column, int col)
+{
+    for (int x = 5; x >= 0; --x)
+    {
+        if (getColor(_board, x, column) == Info.WHITE)
         {
-            //change color to red
-            if (turn%2 == 0)
-            {
-                board[x][column].colorNow = Info.RED;
-                turn++;
-                return;
-            }
-            //change color to black
-            if (turn%2 == 1)
-            {
-                board[x][column].colorNow = Info.BLACK;
-                turn++;
-                return;
-            }
+            _board[x][column].colorNow = col;
+            return;
         }
     }
 }
@@ -69,18 +65,18 @@ void clearBoard()
 }
 
 
-int win()
+int win(Circle[][] _board)
 {
     //Horizontal
     for (int i = 0; i < 6; ++i)
     {
         for (int j = 0; j < 7-3; ++j)
         {
-            if (getColor(i,j) != Info.WHITE
-                && getColor(i,j) == getColor(i,j+1)
-                && getColor(i,j) == getColor(i,j+2)
-                && getColor(i,j) == getColor(i,j+3))
-                    return getColor(i,j);
+            if (getColor(_board, i,j) != Info.WHITE
+                && getColor(_board, i,j) == getColor(_board, i,j+1)
+                && getColor(_board, i,j) == getColor(_board, i,j+2)
+                && getColor(_board, i,j) == getColor(_board, i,j+3))
+                    return getColor(_board, i,j);
         }
     }
 
@@ -89,11 +85,11 @@ int win()
     {
         for (int j = 0; j < 7; ++j)
         {
-            if (getColor(i,j) != Info.WHITE
-                && getColor(i,j) == getColor(i+1,j)
-                && getColor(i,j) == getColor(i+2,j)
-                && getColor(i,j) == getColor(i+3,j))
-                    return getColor(i,j);
+            if (getColor(_board, i,j) != Info.WHITE
+                && getColor(_board, i,j) == getColor(_board, i+1,j)
+                && getColor(_board, i,j) == getColor(_board, i+2,j)
+                && getColor(_board, i,j) == getColor(_board, i+3,j))
+                    return getColor(_board, i,j);
         }
     }
 
@@ -102,22 +98,22 @@ int win()
     {
         for (int j = 0; j < 7-3; ++j)
         {
-            if (getColor(i,j) != Info.WHITE
-                && getColor(i,j) == getColor(i+1,j+1)
-                && getColor(i,j) == getColor(i+2,j+2)
-                && getColor(i,j) == getColor(i+3,j+3))
-                    return getColor(i,j);
+            if (getColor(_board, i,j) != Info.WHITE
+                && getColor(_board, i,j) == getColor(_board, i+1,j+1)
+                && getColor(_board, i,j) == getColor(_board, i+2,j+2)
+                && getColor(_board, i,j) == getColor(_board, i+3,j+3))
+                    return getColor(_board, i,j);
         }
     }
     for (int i = 3; i < 6; ++i)
     {
         for (int j = 0; j < 7-3; ++j)
         {
-            if (getColor(i,j) != Info.WHITE
-                && getColor(i,j) == getColor(i-1,j+1)
-                && getColor(i,j) == getColor(i-2,j+2)
-                && getColor(i,j) == getColor(i-3,j+3))
-                    return getColor(i,j);
+            if (getColor(_board, i,j) != Info.WHITE
+                && getColor(_board, i,j) == getColor(_board, i-1,j+1)
+                && getColor(_board, i,j) == getColor(_board, i-2,j+2)
+                && getColor(_board, i,j) == getColor(_board, i-3,j+3))
+                    return getColor(_board, i,j);
         }
     }
 
